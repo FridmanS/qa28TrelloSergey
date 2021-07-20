@@ -11,12 +11,12 @@ public class LoginTrelloTests extends TestBase {
     @Test
     public void loginTest() throws InterruptedException {
         //clickOnLoginButton
-        clickOnLoginButton();
+        app.loginHelper().clickOnLoginButton();
         //fillLoginForm
-        fillLoginForm("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
+        app.loginHelper().fillLoginForm("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
         //confirmLogin
-        confirmLogin();
-        Assert.assertTrue(isAvatarPresentWait(), "Avatar is not present");
+        app.loginHelper().confirmLogin();
+        Assert.assertTrue(app.loginHelper().isAvatarPresentWait(), "Avatar is not present");
     }
 
 

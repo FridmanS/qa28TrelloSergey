@@ -10,8 +10,8 @@ public class BoardCreationTests extends TestBase{
     @BeforeMethod
     public void preCondition() throws InterruptedException {
         //isUserLoggedIn
-        if(!isAvatarPresent()){
-            login("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
+        if(!app.boardHelper().isAvatarPresent()){
+            app.boardHelper().login("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
         }
     }
 
@@ -19,14 +19,14 @@ public class BoardCreationTests extends TestBase{
     public void boardCreationTest() throws InterruptedException {
         String boardName = "qa28Board_" + System.currentTimeMillis();
         //clickOnPlusButton
-        clickOnPlusButton();
+        app.boardHelper().clickOnPlusButton();
         //SelectCreateBoard
-        selectCreateBoard();
+        app.boardHelper().selectCreateBoard();
         //FillBoardCreationForm
-        fillBoardCreationForm(boardName);
-        confirmBoardCreation();
-        waitForOpenAddListInTheBoard();
-        String title = getTitle();
+        app.boardHelper().fillBoardCreationForm(boardName);
+        app.boardHelper().confirmBoardCreation();
+        app.boardHelper().waitForOpenAddListInTheBoard();
+        String title = app.boardHelper().getTitle();
         Assert.assertEquals(title, boardName);
     }
 

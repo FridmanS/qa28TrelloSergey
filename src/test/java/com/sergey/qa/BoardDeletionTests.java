@@ -9,45 +9,23 @@ public class BoardDeletionTests extends  TestBase {
     @BeforeMethod
     public void preCondition() throws InterruptedException {
         //isUserLoggedIn
-        if(!isAvatarPresent()){
-            login("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
+        if(!app.boardHelper().isAvatarPresent()){
+            app.boardHelper().login("fridmans93@gmail.com", "?gH6]e?d4Lw~$x!");
         }
     }
 
     @Test
-    public void testBoardDeletion(){
-        getBoardsCount();
-        selectFirstBoard();
-        openMenu();
-        deleteBoard();
-        returnOnHomePage();
+    public void testBoardDeletion() throws InterruptedException {
+        Thread.sleep(4000);
+        int boardsCount = app.boardHelper().getBoardsCount();
+        while (boardsCount>1) {
+            app.boardHelper().selectFirstBoard();
+            app.boardHelper().openMenu();
+            app.boardHelper().deleteBoard();
+            app.boardHelper().returnOnHomePage();
+            Thread.sleep(4000);
+            boardsCount = app.boardHelper().getBoardsCount();
+        }
 
-    }
-
-    private void returnOnHomePage() {
-        click(By.cssSelector("[data-test-id*=header-home]"));
-    }
-
-    private void deleteBoard() {
-        click(By.cssSelector(".icon-back"));
-        click(By.cssSelector("js-open-more"));
-        click(By.cssSelector(".js-close-board"));
-        click(By.cssSelector(".js-confirm"));
-        click(By.cssSelector(".js-delete"));
-        click(By.cssSelector(".js-confirm"));
-
-
-    }
-
-    private void openMenu() {
-        click(By.cssSelector(".js"));
-    }
-
-    private int getBoardsCount() {
-        return wd.findElements(By.xpath("//*[contains(@class, 'boards-page-board-section-header-icon-default-image')]/../../../..//li")).size() - 1;
-    }
-
-    private void selectFirstBoard() {
-        click(By.xpath("//*[contains(@class, 'boards-page-board-section-header-icon-default-image')]/../../../..//li"));
     }
 }
